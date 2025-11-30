@@ -1,0 +1,112 @@
+#include <iostream>
+using namespace std;
+int q[SIZE];
+int front = -1, rear = -1;
+bool isEmpty() {
+    return (front == -1);
+}
+bool isFull() {
+    return (rear == SIZE - 1);
+}
+void enqueue(int x) {
+    if(isFull()) {
+        cout << "Queue is Full\n";
+        return;
+    }
+    if(front == -1)
+        front = 0;
+
+    q[++rear] = x;
+    cout << "Inserted " << x << endl;
+}
+void dequeue() {
+    if(isEmpty()) {
+        cout << "Queue is Empty\n";
+        return;
+    }
+    cout << "Deleted " << q[front] << endl;
+
+    if(front == rear) {   // last element removed
+        front = rear = -1;
+    } else {
+        front++;
+    }
+}
+void peek() {
+    if(isEmpty()) {
+        cout << "Queue is Empty\n";
+    } else {
+        cout << "Front element: " << q[front] << endl;
+    }
+}
+void display() {
+    if(isEmpty()) {
+        cout << "Queue is Empty\n";
+        return;
+    }
+
+    cout << "Queue: ";
+    for(int i = front; i <= rear; i++)
+        cout << q[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    int choice, x;
+
+    do {
+        cout << "1. Enqueue\n";
+        cout << "2. Dequeue\n";
+        cout << "3. isEmpty\n";
+        cout << "4. isFull\n";
+        cout << "5. Peek\n";
+        cout << "6. Display\n";
+        cout << "7. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                cout << "Enter value: ";
+                cin >> x;
+                enqueue(x);
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                if(isEmpty())
+                    cout << "Queue is Empty\n";
+                else
+                    cout << "Queue is NOT Empty\n";
+                break;
+
+            case 4:
+                if(isFull())
+                    cout << "Queue is Full\n";
+                else
+                    cout << "Queue is NOT Full\n";
+                break;
+
+            case 5:
+                peek();
+                break;
+
+            case 6:
+                display();
+                break;
+
+            case 7:
+                cout << "Exiting\n";
+                break;
+
+            default:
+                cout << "Invalid choice\n";
+        }
+
+    } while(choice != 7);
+
+    return 0;
+}
